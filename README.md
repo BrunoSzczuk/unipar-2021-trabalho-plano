@@ -25,17 +25,20 @@ prestados/usufruídos.
 
 ![Modelo de domínio](docs/images/modelo_de_dominio_cobranca.png)
 
+### Modelo de Arquitetura CQRS para rotina de Cobrança
+
+![Modelo de domínio](docs/images/arq_cqrs.png)
 
 -----------------------
 
 ### Setup Inicial
 
-Baixe o [Environment](https://drive.google.com/file/d/1eNK-_kp-VaJ3j95O4KSVd72OtEqXyDvJ/view?usp=sharing) do POSTMAN e
+Utilize o [Environment](cobranca.postman_environment.json) do POSTMAN e
 use a opção de Importar.
 
 ![Importar Environment](docs/images/import_environment_postman.png)
 
-Baixe a [Collection](https://drive.google.com/file/d/1BMZg6-yI44fkWrrvIqHZbdgmBdrRcSmA/view?usp=sharing) do POSTMAN e
+Utilize a [Collection](cobranca.postman_collection.json) do POSTMAN e
 use a opção de Importar.
 
 ![Importar Collection](docs/images/import_collection_postman.png)
