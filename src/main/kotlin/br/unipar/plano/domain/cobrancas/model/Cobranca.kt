@@ -21,6 +21,7 @@ class Cobranca(
     @Column(nullable = false)
     val valorAdicionalIdade: BigDecimal,
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     var status: StatusCobranca = StatusCobranca.ABERTO,
     @Column(nullable = false)
     val dataEmissao: LocalDate,

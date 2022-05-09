@@ -68,7 +68,7 @@ class RegistrarCobrancaUseCaseImpl(
     }
 
     fun verificaSeExisteCobrancaProContratoNoMes(idContrato: IdContrato, dataEmissao: LocalDate) =
-        queryService.verificaSeExisteCobrancaProContratoNoMes(idContrato, dataEmissao, StatusCobranca.CANCELADO)
+        gateway.verificaSeExisteCobrancaProContratoNoMes(idContrato, dataEmissao, StatusCobranca.CANCELADO)
 
     fun geraDataVencimento(dataEmissao: LocalDate) =
         dataEmissao.plusDays(diasVencimentoCobranca.toLong())

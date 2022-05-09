@@ -31,7 +31,9 @@ dependencies {
     implementation("org.modelmapper:modelmapper:2.4.2")
     implementation("org.modelmapper.extensions:modelmapper-spring:2.4.2")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
-    runtimeOnly("com.h2database:h2")
+    // https://mvnrepository.com/artifact/org.postgresql/postgresql
+    implementation("org.postgresql:postgresql:42.3.5")
+
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
     testImplementation("org.mockito.kotlin:mockito-kotlin:3.2.0")
@@ -39,6 +41,8 @@ dependencies {
     implementation("org.mongodb:mongo-java-driver:3.12.11")
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-mongodb
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb:2.6.7")
+    // https://mvnrepository.com/artifact/org.springframework.data/spring-data-mongodb
+    implementation("org.springframework.data:spring-data-mongodb:3.3.4")
 
 
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
