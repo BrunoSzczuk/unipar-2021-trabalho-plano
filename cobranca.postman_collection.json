@@ -1,0 +1,97 @@
+{
+	"info": {
+		"_postman_id": "ad0377b6-c521-44ca-874a-255f923ba4c5",
+		"name": "Cobranca - Trabalho pos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "buscarTodos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}",
+					"host": [
+						"{{host}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "inserir",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Shoud have client\", function () {\r",
+							"    pm.response.to.have.header(\"Location\");\r",
+							"    var loc = pm.response.headers.get(\"Location\");\r",
+							"    \r",
+							"    pm.environment.set('id', loc.split(\"/\").pop());\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cirurgias\": [\r\n        {\r\n            \"id\": \"95fa1e60-67c1-4274-8186-b12cc224f4a9\"\r\n        },\r\n        {\r\n            \"id\": \"95fa1e60-67c1-4274-8186-b12cc224f4a8\"\r\n        }\r\n    ],\r\n    \"procedimentos\": [\r\n        {\r\n            \"id\": \"95fa1e60-67c1-4274-8186-b12cc224f4a7\"\r\n        },\r\n        {\r\n            \"id\": \"95fa1e60-67c1-4274-8186-b12cc224f4a6\"\r\n        }\r\n    ],\r\n    \"dataEmissao\": \"2021-10-11\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}",
+					"host": [
+						"{{host}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cancelamento",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/{{id}}/cancelamento",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{id}}",
+						"cancelamento"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "buscarPorId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/{{id}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
