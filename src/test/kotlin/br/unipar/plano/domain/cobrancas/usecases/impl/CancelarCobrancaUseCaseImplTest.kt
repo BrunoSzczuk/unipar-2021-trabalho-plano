@@ -5,7 +5,6 @@ import br.unipar.plano.domain.cobrancas.gateway.CobrancaGateway
 import br.unipar.plano.domain.cobrancas.model.Cobranca
 import br.unipar.plano.domain.cobrancas.model.factories.cobranca
 import br.unipar.plano.domain.cobrancas.model.factories.contrato
-import br.unipar.plano.domain.cobrancas.model.toCobrancaView
 import br.unipar.plano.domain.cobrancas.service.CobrancaQueryService
 import br.unipar.plano.domain.cobrancas.valueobjects.StatusCobranca
 import org.junit.jupiter.api.Assertions.*
@@ -16,6 +15,7 @@ import org.mockito.kotlin.any
 import org.mockito.kotlin.doAnswer
 import org.mockito.kotlin.mock
 import java.time.LocalDate
+import java.util.*
 
 class CancelarCobrancaUseCaseImplTest {
     private var gateway = mock<CobrancaGateway>()
@@ -32,7 +32,7 @@ class CancelarCobrancaUseCaseImplTest {
     fun `deve cancelar a cobranca`() {
         val cobranca = cobranca(dataCancelamento = null)
         val contrato = contrato()
-        Mockito.`when`(queryService.buscaPorId(any(), any())).thenReturn(cobranca.toCobrancaView())
+        Mockito.`when`(gateway.buscarPorId(any(), any())).thenReturn(Optional.of(cobranca))
         val cobrancaCancelada = cancelarCobrancaUseCaseImpl.executa(CancelarCobrancaCommand(contrato.id, cobranca.id))
         assertEquals(cobrancaCancelada.status, StatusCobranca.CANCELADO)
         assertNotNull(cobrancaCancelada.dataCancelamento)

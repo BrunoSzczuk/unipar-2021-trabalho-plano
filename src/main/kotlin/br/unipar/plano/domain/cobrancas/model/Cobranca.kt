@@ -1,5 +1,6 @@
 package br.unipar.plano.domain.cobrancas.model
 
+import br.unipar.plano.application.exceptions.NegocioException
 import br.unipar.plano.domain.cobrancas.valueobjects.StatusCobranca
 import br.unipar.plano.infra.cobrancas.model.CobrancaView
 import java.math.BigDecimal
@@ -57,7 +58,7 @@ class Cobranca(
 
     fun cancelar(): Cobranca {
         if (status != StatusCobranca.ABERTO) {
-            throw IllegalStateException("Não é possível cancelar uma Cobranca com status $status")
+            throw NegocioException("Não é possível cancelar uma Cobranca com status $status")
         }
         return copy(status = StatusCobranca.CANCELADO, dataCancelamento = LocalDate.now())
     }

@@ -1,5 +1,6 @@
 package br.unipar.plano.domain.cobrancas.model
 
+import br.unipar.plano.application.exceptions.NegocioException
 import br.unipar.plano.domain.cobrancas.model.factories.cobranca
 import br.unipar.plano.domain.cobrancas.valueobjects.StatusCobranca
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -27,7 +28,7 @@ class CobrancaTest {
     @Test
     fun `nao deve permitir o cancelamento de cobranca`() {
         val cobranca = cobranca(status = StatusCobranca.CANCELADO)
-        assertThrows<IllegalStateException> { cobranca.cancelar() }
+        assertThrows<NegocioException> { cobranca.cancelar() }
     }
 
     @Test

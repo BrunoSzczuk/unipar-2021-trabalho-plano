@@ -2,9 +2,9 @@ package br.unipar.plano.infra.cobrancas.gateway
 
 import br.unipar.plano.domain.cobrancas.gateway.CobrancaGateway
 import br.unipar.plano.domain.cobrancas.model.Cobranca
+import br.unipar.plano.domain.cobrancas.model.IdCobranca
 import br.unipar.plano.domain.cobrancas.model.IdContrato
 import br.unipar.plano.domain.cobrancas.valueobjects.StatusCobranca
-import br.unipar.plano.infra.cobrancas.model.CobrancaView
 import br.unipar.plano.infra.cobrancas.repository.CobrancaRepository
 import org.springframework.stereotype.Service
 import java.time.LocalDate
@@ -19,6 +19,11 @@ class CobrancaGatewayImpl(val cobrancaRepository: CobrancaRepository) : Cobranca
     override fun remover(cobranca: Cobranca) {
         cobrancaRepository.delete(cobranca)
     }
+
+    override fun buscarPorId(id: IdCobranca, idContrato: IdContrato): Optional<Cobranca> {
+        return cobrancaRepository.findById(idContrato, id)
+    }
+
 
     override fun buscarPorContratoAndStatus(
         idContrato: IdContrato,
