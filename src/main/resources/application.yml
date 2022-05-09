@@ -15,5 +15,4 @@ spring:
       enabled: true
   data:
     mongodb:
-      uri: mongodb://localhost:27017/plano
-
+      uri: mongodb://localhost:27017/planos
