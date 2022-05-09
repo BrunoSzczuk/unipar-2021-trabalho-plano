@@ -1,25 +1,19 @@
 package br.unipar.plano.infra.cobrancas.repository
 
-import br.unipar.plano.domain.cobrancas.model.IdCobranca
-import br.unipar.plano.domain.cobrancas.model.IdContrato
-import br.unipar.plano.domain.cobrancas.valueobjects.StatusCobranca
+import br.unipar.plano.infra.cobrancas.model.BuscaCobrancasPorIdContrato
+import br.unipar.plano.infra.cobrancas.model.BuscaCobrancasPorIdContratoEIdCobranca
+import br.unipar.plano.infra.cobrancas.model.BuscaCobrancasPorIdContratoEStatus
 import br.unipar.plano.infra.cobrancas.model.CobrancaView
-import java.time.LocalDate
 import java.util.*
 
 interface CustomCobrancaQueryRepository {
-    fun existsInMonthByContratoAndDateAndStatusNotEquals(
-        idContrato: IdContrato,
-        data: LocalDate,
-        status: StatusCobranca
-    ): Boolean
+
 
     fun findAllByContratoAndStatusIn(
-        idContrato: IdContrato,
-        status: List<StatusCobranca>
+        query: BuscaCobrancasPorIdContratoEStatus
     ): List<CobrancaView>
 
-    fun findAll(idContrato: IdContrato): List<CobrancaView>
+    fun findAll(query: BuscaCobrancasPorIdContrato): List<CobrancaView>
 
-    fun findById(idContrato: IdContrato, idCobranca: IdCobranca): Optional<CobrancaView>
+    fun findById(query: BuscaCobrancasPorIdContratoEIdCobranca): Optional<CobrancaView>
 }

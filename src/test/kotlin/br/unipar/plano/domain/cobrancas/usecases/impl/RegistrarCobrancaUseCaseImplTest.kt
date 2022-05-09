@@ -83,7 +83,7 @@ class RegistrarCobrancaUseCaseImplTest {
 
     @Test
     fun `nao deve gerar cobranca com data futura`() {
-        Mockito.`when`(cobrancaQueryService.verificaSeExisteCobrancaProContratoNoMes(any(), any(), any()))
+        Mockito.`when`(repository.verificaSeExisteCobrancaProContratoNoMes(any(), any(), any()))
             .thenReturn(false)
         val contrato = contrato()
         val procedimentos: Collection<Procedimento> = mutableListOf(
@@ -106,7 +106,7 @@ class RegistrarCobrancaUseCaseImplTest {
 
     @Test
     fun `nao deve gerar uma cobranca pois o contrato nao existe`() {
-        Mockito.`when`(cobrancaQueryService.verificaSeExisteCobrancaProContratoNoMes(any(), any(), any()))
+        Mockito.`when`(repository.verificaSeExisteCobrancaProContratoNoMes(any(), any(), any()))
             .thenReturn(false)
         Mockito.`when`(contratoRepository.findById(any())).thenReturn(Optional.empty())
         val contrato = contrato()

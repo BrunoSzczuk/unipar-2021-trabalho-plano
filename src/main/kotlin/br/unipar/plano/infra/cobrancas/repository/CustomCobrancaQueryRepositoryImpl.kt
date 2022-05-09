@@ -1,52 +1,40 @@
 package br.unipar.plano.infra.cobrancas.repository
 
-import br.unipar.plano.domain.cobrancas.model.IdCobranca
-import br.unipar.plano.domain.cobrancas.model.IdContrato
-import br.unipar.plano.domain.cobrancas.valueobjects.StatusCobranca
+import br.unipar.plano.infra.cobrancas.model.BuscaCobrancasPorIdContrato
+import br.unipar.plano.infra.cobrancas.model.BuscaCobrancasPorIdContratoEIdCobranca
+import br.unipar.plano.infra.cobrancas.model.BuscaCobrancasPorIdContratoEStatus
 import br.unipar.plano.infra.cobrancas.model.CobrancaView
 import org.springframework.data.mongodb.core.MongoTemplate
 import org.springframework.data.mongodb.core.query.Criteria
 import org.springframework.data.mongodb.core.query.Query
-import java.time.LocalDate
 import java.util.*
 
 
 class CustomCobrancaQueryRepositoryImpl(private val mongoTemplate: MongoTemplate) :
     CustomCobrancaQueryRepository {
-    override fun existsInMonthByContratoAndDateAndStatusNotEquals(
-        idContrato: IdContrato,
-        data: LocalDate,
-        status: StatusCobranca
-    ): Boolean {
-        return mongoTemplate.exists(
-            Query.query(
-                Criteria.where("contrato.id").`is`(idContrato).and("dataEmissao").`is`(data).and("status").ne(status)
-            ), CobrancaView::class.java
-        )
-    }
 
-
-    override fun findAllByContratoAndStatusIn(
-        idContrato: IdContrato,
-        status: List<StatusCobranca>
-    ): List<CobrancaView> {
+    override fun findAllByContratoAndStatusIn(query: BuscaCobrancasPorIdContratoEStatus): List<CobrancaView> {
         return mongoTemplate.find(
-            Query.query(Criteria.where("contrato.id").`is`(idContrato).and("status").`in`(status)),
+            Query.query(Criteria.where("contrato.id").`is`(query.idContrato).and("status").`in`(query.status)),
             CobrancaView::class.java
         )
 
     }
 
-    override fun findAll(idContrato: IdContrato): List<CobrancaView> {
-        return mongoTemplate.findAll(CobrancaView::class.java)
+    override fun findAll(query: BuscaCobrancasPorIdContrato): List<CobrancaView> {
+        return mongoTemplate.find(
+            Query.query(
+                Criteria.where("contrato.id").`is`(query.idContrato)
+            ), CobrancaView::class.java
+        )
 
     }
 
-    override fun findById(idContrato: IdContrato, idCobranca: IdCobranca): Optional<CobrancaView> {
+    override fun findById(query: BuscaCobrancasPorIdContratoEIdCobranca): Optional<CobrancaView> {
         return Optional.ofNullable(
             mongoTemplate.find(
                 Query.query(
-                    Criteria.where("contrato.id").`is`(idContrato).and("id").`is`(idCobranca.id)
+                    Criteria.where("contrato.id").`is`(query.idContrato).and("id").`is`(query.idCobranca.id)
                 ), CobrancaView::class.java
             ).first()
         )

@@ -11,6 +11,9 @@ import br.unipar.plano.domain.cobrancas.service.CobrancaQueryService
 import br.unipar.plano.domain.cobrancas.service.CobrancaService
 import br.unipar.plano.domain.cobrancas.usecases.CancelarCobrancaUseCase
 import br.unipar.plano.domain.cobrancas.valueobjects.StatusCobranca
+import br.unipar.plano.infra.cobrancas.model.BuscaCobrancasPorIdContrato
+import br.unipar.plano.infra.cobrancas.model.BuscaCobrancasPorIdContratoEIdCobranca
+import br.unipar.plano.infra.cobrancas.model.BuscaCobrancasPorIdContratoEStatus
 import br.unipar.plano.interfaces.rest.cobrancas.CobrancaDetailsDTO
 import br.unipar.plano.interfaces.rest.cobrancas.CobrancaSummaryDTO
 import org.springframework.stereotype.Service
@@ -36,10 +39,10 @@ class CobrancaServiceImpl(
 
 
     override fun buscaTodos(idContrato: IdContrato): List<CobrancaSummaryDTO> =
-        queryService.lista(idContrato).map(CobrancaSummaryDTO::toDTO)
+        queryService.lista(BuscaCobrancasPorIdContrato(idContrato)).map(CobrancaSummaryDTO::toDTO)
 
     override fun buscarPorId(idContrato: IdContrato, id: IdCobranca): CobrancaDetailsDTO {
-        return CobrancaDetailsDTO.toDTO(queryService.buscaPorId(idContrato, id))
+        return CobrancaDetailsDTO.toDTO(queryService.buscaPorId(BuscaCobrancasPorIdContratoEIdCobranca(idContrato, id)))
 
     }
 
@@ -47,7 +50,12 @@ class CobrancaServiceImpl(
         idContrato: IdContrato,
         status: Optional<List<StatusCobranca>>
     ): List<CobrancaDetailsDTO> {
-        return queryService.buscarPorContratoAndStatus(idContrato, status).map(CobrancaDetailsDTO::toDTO)
+        return queryService.buscarPorContratoAndStatus(
+            BuscaCobrancasPorIdContratoEStatus(
+                idContrato,
+                status.orElse(null)
+            )
+        ).map(CobrancaDetailsDTO::toDTO)
     }
 
 
